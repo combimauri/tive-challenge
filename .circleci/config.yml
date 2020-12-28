@@ -64,11 +64,11 @@ workflows:
           filters:
             branches:
               only:
-                - Main
+                - main
       - deploy:
           requires:
             - build
           filters:
             branches:
               only:
-                - Main
+                - main
