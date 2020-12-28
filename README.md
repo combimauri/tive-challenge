@@ -14,13 +14,13 @@ In order to cache all the requests made to the API, a **service worker** configu
 
 For the **service worker** implementation, Angular provides a configuration file in order to generate it for production builds. Other solution could have been **workbox**, but very few configuration was needed, so this option was not used.
 
-**Important Note:** caching request from the API will only work for **production environment**.
+**Important Note:** caching requests from the API will only work for **production environment**.
 
 ## Environment
 
 - Node: **v12.19.0**
 - NPM: **v6.14.8**
-- Angular CLI: **11.0.5**
+- Angular CLI: **v11.0.5**
 
 Using other Node or NPM version could lead to modification of package-lock and sub-dependencies, take care about that.
 
@@ -79,6 +79,7 @@ Also notice that the production build will communicat with the hosted API Cloud 
 ## Additional Notes
 
 - App is using [CircleCI](https://circleci.com/gh/combimauri/tive-challenge) for CI/CD. You can find the **pipeline** under `.circleci/config.yml`.
+- Having good scores in [Lighthouse](https://developers.google.com/web/tools/lighthouse) Audit tool was one of the priorities during the development of the app.
 
 # Angular Documentation
 

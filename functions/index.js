@@ -169,7 +169,7 @@ function filterUsers(users, { userId, filterBy } = {}) {
 }
 
 /**
- * Parses numeric properties, calculates wrong properties (level and tiem)
+ * Parses numeric properties, calculates wrong properties (level and time)
  * and adds missing one (score)
  * @param user: user to be parsed
  */
@@ -224,6 +224,7 @@ function sortUsersByScore(users) {
  * Comparation function for sorting users in descending order
  * @param userA: users to be sorted
  * @param userB: users to be sorted
+ * @returns comparation value for 'sort' function (1, -1 or 0)
  */
 function compareUsersByScore(userA, userB) {
   const { score: scoreA } = userA;
