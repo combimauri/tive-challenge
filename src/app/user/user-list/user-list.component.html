@@ -1,0 +1,17 @@
+<div class="container">
+  <h2>Users</h2>
+  <div class="row">
+    <h3>Global Ranking Position</h3>
+    <ng-container *ngIf="globalRankingResponse$ | async as response">
+      <tive-ranking-table
+        [data]="response.items"
+        [dbHasMoreItems]="response.hasMore"
+        [currentPageNumber]="response.pageNumber"
+        [pageSize]="response.itemsPerPage"
+        (goToPreviousPage)="goToPreviousPage(response.pageNumber)"
+        (goToNextPage)="goToNextPage(response.hasMore, response.pageNumber)"
+        (navigateToItemProfile)="navigateToItemProfile($event)"
+      ></tive-ranking-table>
+    </ng-container>
+  </div>
+</div>
