@@ -1,0 +1,93 @@
+==========================
+ TiveLab's Code Challenge
+==========================
+
+Usualmente una plataforma sea web o móvil necesita de una estrategia de caché
+(mantener data en memoria local) para ahorrar llamadas (menos consumo de APIs) 
+y tener disponible la data instantáneamente dado que calcular todos
+los valores necesarios (al vuelo o en tiempo real) para una página
+o pantalla puede ser muy costoso.
+
+Ejemplo:
+Un usuario esta dentro un juego (con miles/millones de usuarios participando)
+que basado en su Score entra en un ranking global, un ranking nacional
+y un ranking entre amigos (dentro del juego).
+
+Para dar solución a este problema se provee un archivo json (users.data.json)
+con 5000 datos de prueba (https://www.mockaroo.com/) que contienen los siguientes atributos:
+
+{
+    "userId": "U00001",
+    "name": "Jon Snow",
+    "level": "1",
+    "coins": "55",
+    "time": "60000",
+    "country": "BO",
+    "friends": ["U00002"]
+}
+
+- userId // El identificador único 
+- nombre // Nombre del Usuario
+- level // Nivel del Usuario 
+- coins // Monedas colectadas en el juego
+- time // Tiempo en segundos que el jugador sobrevive en el juego
+- country // country code alpha-2 format (https://www.iban.com/country-codes)
+- friends // lista/array de ids de los amigos del usuario actual
+
+
+A) levelUpIfNeeded(userId) // esta data puede requerir que antes de calcular el score el usuario suba de nivel
+La subida de nivel se evalua, si el usuario a estado jugando 8 horas sube un nivel
+y el tiempo jugado se actualiza restando el saldo. 
+
+Ejemplo A1)
+Explicación: Si el time es 60'000 y el level es 1
+El usuario debería subir 2 niveles dado que
+=> 60(segundos)* 60(minutos)*8(horas) = 28'800 (tiempo en segundos para subir)
+=> 60'000 / 28'800 = 2.083 => 2 (niveles para subir)
+=> 60'000 - 57'600 = 2400 (saldo de segundos para dejar en time)
+
+Input => {level: 1, time: 60000}
+Output => {level: 3, time 2400}
+
+Ejemplo A2)
+El usuario se queda en el mismo nivel por que no logra cumplir con jugar al menos 8 horas para subir de nivel.
+Input => {level: 1, time: 25000}
+Output => {level: 1, time 25000}
+
+
+B) calculateScore(userId) // para participar en los rankings 
+
+El score se calcula de la siguiente forma:
+===========================
+TIME = tiempo jugado en horas
+NIVEL = Nivel del Jugador
+COIN = Monedas colectadas
+===========================
+NIVEL * COIN + TIME = SCORE
+
+Input => { time: 100, coin: 5, level: 2}
+Output => { score: 110 }
+
+
+C) calculateGlobalRankPosition(userId)     // para participar en el ranking global
+
+Input => users.data.json, {userId: "U00001"}
+Output => {position: 10 }
+
+
+D) calculateNationalRankPosition(userId)   // para participar en el ranking nacional
+Input => users.data.json, {userId: "U00001"}
+Output => {position: 5 }
+
+E) calculateFriendsPosition(userId)        // para participar en un ranking entre amigos
+Input => users.data.json, {userId: "U00001"}
+Output => {position: 1 }
+
+
+F) calculateCache(userId) // para mostrar la data y no calcular multiples veces lo mismo en el mismo dia 
+Los rankings se actualizan una vez al dia.
+
+Input => users.data.json, {userId: "U00001"}
+Ouput => {userId: "U00001", global: 10, national: 5, friends: 1, score: 110, level: 3, time: 123}
+
+G) Diseñar una pantalla/página mostrando la data de un usuario y poder mostrar el usuario dentro del ranking.
